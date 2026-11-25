@@ -85,11 +85,8 @@ phone.add(cameraLens);
 
 const frameImage = new Image();
 frameImage.onload = () => {
-  const source = document.createElement('canvas');
-  source.width = 715;
-  source.height = 1455;
-  source.getContext('2d').drawImage(frameImage, 155, 45, 715, 1455, 0, 0, 715, 1455);
-  const texture = new THREE.CanvasTexture(source);
+  const texture = new THREE.Texture(frameImage);
+  texture.needsUpdate = true;
   texture.colorSpace = THREE.SRGBColorSpace;
   const frame = new THREE.Mesh(roundedPlane(70.8, 150.5, 10.5), new THREE.MeshBasicMaterial({ map: texture, transparent: true, depthWrite: false }));
   frame.position.z = 4.65;
