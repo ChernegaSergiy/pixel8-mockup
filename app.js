@@ -132,7 +132,7 @@ for (const offset of [-19, -4]) {
 const flash = new THREE.Mesh(new THREE.CircleGeometry(2.1, 32), new THREE.MeshBasicMaterial({ color: 0xe0d3b6, side: THREE.DoubleSide }));
 flash.position.set(21, 42, -8.02);
 phone.add(flash);
-for (const [height, length] of [[35, 11], [15, 19]]) {
+for (const [height, length] of [[32.1, 11.9], [8.3, 19.1]]) {
   const button = roundedBody(0.8, length, 2.1, 0.35, bodyMaterial);
   button.position.set(35.6, height, 0);
   phone.add(button);
