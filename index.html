@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pixel 8 — редактор мокапів</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="importmap">{"imports":{"three":"./vendor/three.module.js"}}</script>
+</head>
+<body>
+  <main class="app">
+    <aside class="panel">
+      <h1>Мокап Pixel 8</h1>
+      <p>Перетягуйте телефон, щоб обертати. Коліщатко змінює масштаб.</p>
+      <label class="upload">Скриншот <input id="upload" type="file" accept="image/png,image/jpeg,image/webp"></label>
+      <p class="hint">Скриншот не розтягується. Для заповнення екрана використовуйте пропорції 9:20.</p>
+      <label>Розміщення <select id="fit"><option value="contain">Повністю видимий</option><option value="cover">Заповнити екран (обрізати)</option></select></label>
+      <fieldset><legend>Ракурс</legend><div class="buttons"><button id="front">Спереду</button><button id="iso">Ізометрія</button><button id="back">Ззаду</button></div></fieldset>
+      <label>Фон <select id="background"><option value="transparent">Прозорий</option><option value="light">Світлий</option><option value="dark">Темний</option></select></label>
+      <label>Формат PNG <select id="size"><option value="1080x1920">1080 × 1920</option><option value="1920x1080">1920 × 1080</option><option value="2048x2048">2048 × 2048</option></select></label>
+      <button id="download" class="primary">Завантажити PNG</button>
+      <p id="message" class="hint" role="status">Приклад інтерфейсу з тестовими даними.</p>
+      <p class="hint">Корпус: 70,8 × 150,5 × 8,9 мм; екран — 20:9. Радіуси, задня панель та камери наближені.</p>
+    </aside>
+    <section class="stage" aria-label="Попередній перегляд 3D-моделі"><div id="viewport"></div></section>
+  </main>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
