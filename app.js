@@ -63,8 +63,20 @@ function roundedBody(width, height, depth, radius, material) {
 const phone = new THREE.Group();
 scene.add(phone);
 const bodyMaterial = new THREE.MeshStandardMaterial({ color: 0x252a2e, roughness: 0.4, metalness: 0.5 });
-const body = roundedBody(70.8, 150.5, 8.9, 10.5, bodyMaterial);
+const sideMaterial = new THREE.MeshStandardMaterial({ color: 0x252a2e, roughness: 0.4, metalness: 0.5 });
+const body = roundedBody(70.8, 150.5, 8.9, 10.5, [bodyMaterial, sideMaterial]);
 phone.add(body);
+const textureLoader = new THREE.TextureLoader();
+textureLoader.load('assets/pixel8-edge-texture.png', texture => {
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.wrapS = THREE.RepeatWrapping;
+  texture.wrapT = THREE.RepeatWrapping;
+  texture.repeat.set(1 / 150.5, 1 / 8.9);
+  texture.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+  sideMaterial.map = texture;
+  sideMaterial.color.set(0xffffff);
+  sideMaterial.needsUpdate = true;
+}, undefined, () => { message.textContent = 'Не вдалося завантажити текстуру граней.'; });
 
 const screenWidth = 64.0;
 const screenHeight = screenWidth * 20 / 9;
@@ -99,6 +111,13 @@ const backMaterial = new THREE.MeshStandardMaterial({ color: 0x424a4b, metalness
 const back = roundedBody(67.6, 147.3, 0.65, 9.5, backMaterial);
 back.position.z = -4.52;
 phone.add(back);
+textureLoader.load('assets/pixel8-back-texture.png', texture => {
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+  const backSurface = new THREE.Mesh(roundedPlane(67.6, 147.3, 9.5), new THREE.MeshStandardMaterial({ map: texture, metalness: 0.2, roughness: 0.36, side: THREE.DoubleSide }));
+  backSurface.position.z = -4.86;
+  phone.add(backSurface);
+}, undefined, () => { message.textContent = 'Не вдалося завантажити текстуру задньої панелі.'; });
 const cameraBar = roundedBody(65, 17, 3.3, 7.8, new THREE.MeshStandardMaterial({ color: 0x666c6b, metalness: 0.75, roughness: 0.29 }));
 cameraBar.position.set(0, 42, -6.3);
 phone.add(cameraBar);
